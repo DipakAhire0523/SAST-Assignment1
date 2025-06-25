@@ -1,0 +1,32 @@
+# Talisman Configuration File
+# This file contains patterns and configurations for Talisman secret scanner
+
+# Allowlist patterns - files that should be ignored by Talisman
+# Example: allowlist:
+#   - filename: "*.pem"
+#     checksum: "your-file-checksum-here"
+
+# Custom patterns for detecting secrets
+# Example custom_patterns:
+#   - name: "Custom API Key"
+#     pattern: "custom_api_key_[a-zA-Z0-9]{32}"
+
+# Severity threshold (low, medium, high)
+threshold: medium
+
+# File size limit in KB (files larger than this will be ignored)
+fileSizeLimit: 1000
+
+# Custom detector configurations
+detector_configs:
+  - name: "Base64"
+    severity: "medium"
+  - name: "PrivateKey"
+    severity: "high"
+  - name: "GenericCredential"
+    severity: "medium"
+
+# Patterns to ignore (false positives)
+ignore_patterns:
+  - "test_key_12345"  # Example test key that's safe to ignore
+  - "dummy_password"  # Example dummy password
