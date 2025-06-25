@@ -2,9 +2,9 @@ name: Security Pipeline
 
 on:
   push:
-    branches: [ main, feature ]
+    branches: [ main, security ]
   pull_request:
-    branches: [ main, feature ]
+    branches: [ main, security ]
 
 permissions:
   actions: read
