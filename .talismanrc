@@ -1,23 +1,13 @@
 # Talisman Configuration File
-# This file contains patterns and configurations for Talisman secret scanner
+# This file configures how Talisman scans for secrets
 
-# Allowlist patterns - files that should be ignored by Talisman
-# Example: allowlist:
-#   - filename: "*.pem"
-#     checksum: "your-file-checksum-here"
-
-# Custom patterns for detecting secrets
-# Example custom_patterns:
-#   - name: "Custom API Key"
-#     pattern: "custom_api_key_[a-zA-Z0-9]{32}"
-
-# Severity threshold (low, medium, high)
+# Set severity threshold — only issues at or above this level will be reported
 threshold: medium
 
-# File size limit in KB (files larger than this will be ignored)
+# Files larger than this (in KB) will be ignored
 fileSizeLimit: 1000
 
-# Custom detector configurations
+# Enable and configure built-in secret detectors
 detector_configs:
   - name: "Base64"
     severity: "medium"
@@ -26,7 +16,19 @@ detector_configs:
   - name: "GenericCredential"
     severity: "medium"
 
-# Patterns to ignore (false positives)
+# Custom ignore patterns — safe dummy/test values to suppress
 ignore_patterns:
-  - "test_key_12345"  # Example test key that's safe to ignore
-  - "dummy_password"  # Example dummy password
+  - "test_key_12345"         # Ignore known test API key
+  - "dummy_password"         # Ignore known dummy password
+  - "example-token-123"      # Add your false positives here
+  - "not-a-real-secret-456"
+
+# File-level ignore config (optional)
+fileignoreconfig:
+  - filename: "src/config/testConfig.js"
+    ignoreDetectors:
+      - "Base64"
+      - "GenericCredential"
+  - filename: "tests/mockData.js"
+    ignoreDetectors:
+      - "PrivateKey"
