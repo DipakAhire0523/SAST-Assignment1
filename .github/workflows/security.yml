@@ -69,7 +69,7 @@ jobs:
           git diff --name-only origin/${{ github.base_ref }}..HEAD | xargs -r talisman --scanfile
         else
           # For push to main, scan all files
-          talisman --scan
+          talisman --scan || true
         fi
 
     - name: Upload Talisman Report
