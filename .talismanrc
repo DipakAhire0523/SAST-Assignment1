@@ -23,12 +23,25 @@ ignore_patterns:
   - "example-token-123"      # Add your false positives here
   - "not-a-real-secret-456"
 
-# File-level ignore config (optional)
+# File-level ignore config
 fileignoreconfig:
   - filename: "src/config/testConfig.js"
     ignoreDetectors:
       - "Base64"
       - "GenericCredential"
+
   - filename: "tests/mockData.js"
     ignoreDetectors:
       - "PrivateKey"
+
+  - filename: "package-lock.json"
+    ignoreDetectors:
+      - "Base64"
+    ignored_patterns:
+      - ".*"
+
+  - filename: ".env.example"
+    ignoreDetectors:
+      - "filename"
+    ignored_patterns:
+      - "^\\.env\\.example$"
